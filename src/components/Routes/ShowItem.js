@@ -14,7 +14,7 @@ class ShowItem extends Component {
   deleteItem = (item) => {
     const { user } = this.props
     axios.delete({
-      url: `${apiUrl}/items/${item.id}`,
+      url: `${apiUrl}/items/${this.props.match.params.id}`,
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${user.token}`
@@ -25,9 +25,8 @@ class ShowItem extends Component {
   }
   componentDidMount (item) {
     const { user } = this.props
-    console.log(this.props)
     axios({
-      url: `${apiUrl}/items/${item.id}`,
+      url: `${apiUrl}/items/${this.props.match.params.id}`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${user.token}`

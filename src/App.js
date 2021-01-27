@@ -59,11 +59,11 @@ class App extends Component {
           <AuthenticatedRoute path='/create-item' user={user} component={CreateItem} render={() => (
             <CreateItem user={user} />
           )} />
+          <AuthenticatedRoute user={user} path='/items/:id' render={({ match }) => (
+            <ShowItem msgAlert={this.msgAlert} user={user} match={match}/>
+          )} />
           <AuthenticatedRoute exact path='/items' user={user} component={IndexItems} render={() => (
             <IndexItems user={user} />
-          )} />
-          <AuthenticatedRoute exact path='/items/:id' user={user} component={ShowItem} render={() => (
-            <ShowItem user={user} />
           )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
