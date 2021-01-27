@@ -10,6 +10,8 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 import CreateItem from './components/Routes/CreateItem'
+import ShowItem from './components/Routes/ShowItem'
+import IndexItems from './components/Routes/IndexItems'
 
 class App extends Component {
   constructor (props) {
@@ -54,7 +56,15 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route path='/create-item' component={CreateItem} />
+          <AuthenticatedRoute path='/create-item' user={user} component={CreateItem} render={() => (
+            <CreateItem user={user} />
+          )} />
+          <AuthenticatedRoute exact path='/items' user={user} component={IndexItems} render={() => (
+            <IndexItems user={user} />
+          )} />
+          <AuthenticatedRoute exact path='/items/:id' user={user} component={ShowItem} render={() => (
+            <ShowItem user={user} />
+          )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
