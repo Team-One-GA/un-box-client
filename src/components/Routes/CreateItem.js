@@ -7,6 +7,7 @@ import ItemForm from '../Form/ItemForm'
 class CreateItem extends Component {
   constructor (props) {
     super(props)
+
     this.state = {
       item: {
         name: '',
@@ -20,21 +21,18 @@ class CreateItem extends Component {
       createdId: null
     }
   }
-  toggleFragile = () => {
-    this.setState(initialState => ({
-      fragile: !initialState.fragile
-    }))
-  }
-  handleSubmit = (event) => {
+  handleSubmit = (event, user) => {
     event.preventDefault()
     const { item } = this.state
     axios({
       method: 'post',
       url: `${apiUrl}/items`,
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      },
       data: { item }
     })
       .then(res => this.setState({ createdId: res.data.item._id }))
-      .then(console.log(this.state))
       .catch(console.error)
   }
   handleInputChange = (event) => {
@@ -59,7 +57,6 @@ class CreateItem extends Component {
           item={this.state.item}
           handleSubmit={this.handleSubmit}
           handleInputChange={this.handleInputChange}
-          toggleFragile={this.toggleFragile}
         />
       </Fragment>
     )
