@@ -12,6 +12,7 @@ class ShowItem extends Component {
     }
   }
   componentDidMount (item) {
+    console.log(this)
     const { user } = this.props
     axios({
       url: `${apiUrl}/items/${this.props.match.params.id}`,
@@ -25,7 +26,6 @@ class ShowItem extends Component {
   }
   deleteItem = () => {
     const { user } = this.props
-    console.log(this.state.item._id)
     axios({
       url: `${apiUrl}/items/${this.state.item._id}`,
       method: 'delete',

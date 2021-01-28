@@ -60,7 +60,7 @@ class App extends Component {
           <AuthenticatedRoute path='/create-item' user={user} component={CreateItem} render={() => (
             <CreateItem user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/update-item' render={({ match }) => (
+          <AuthenticatedRoute user={user} path='/update-item/:id' render={({ match }) => (
             <UpdateItem msgAlert={this.msgAlert} user={user} match={match}/>
           )} />
           <AuthenticatedRoute user={user} path='/items/:id' render={({ match }) => (
