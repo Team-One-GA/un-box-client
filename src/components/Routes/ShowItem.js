@@ -11,18 +11,6 @@ class ShowItem extends Component {
       deleted: false
     }
   }
-  deleteItem = (item) => {
-    const { user } = this.props
-    axios({
-      url: `${apiUrl}/items/${this.props.match.params.id}`,
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${user.token}`
-      }
-    })
-      .then(() => this.setState({ deleted: true }))
-      .catch(console.error)
-  }
   componentDidMount (item) {
     const { user } = this.props
     axios({
@@ -35,6 +23,20 @@ class ShowItem extends Component {
       .then(res => this.setState({ item: res.data.item }))
       .catch(console.error)
   }
+  deleteItem = () => {
+    const { user } = this.props
+    console.log(this.state.item._id)
+    axios({
+      url: `${apiUrl}/items/${this.state.item._id}`,
+      method: 'delete',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    })
+      .then(() => this.setState({ deleted: true }))
+      .catch(console.error)
+  }
+
   render () {
     let itemJsx
     const { item, deleted } = this.state

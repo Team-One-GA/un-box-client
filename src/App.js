@@ -12,6 +12,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import CreateItem from './components/Routes/CreateItem'
 import ShowItem from './components/Routes/ShowItem'
 import IndexItems from './components/Routes/IndexItems'
+import UpdateItem from './components/Routes/UpdateItem'
 
 class App extends Component {
   constructor (props) {
@@ -58,6 +59,9 @@ class App extends Component {
         <main className="container">
           <AuthenticatedRoute path='/create-item' user={user} component={CreateItem} render={() => (
             <CreateItem user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/update-item' render={({ match }) => (
+            <UpdateItem msgAlert={this.msgAlert} user={user} match={match}/>
           )} />
           <AuthenticatedRoute user={user} path='/items/:id' render={({ match }) => (
             <ShowItem msgAlert={this.msgAlert} user={user} match={match}/>
