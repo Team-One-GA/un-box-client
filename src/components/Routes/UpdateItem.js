@@ -35,7 +35,6 @@ class UpdateItem extends Component {
     event.preventDefault()
     const { user, msgAlert } = this.props
     const { item } = this.state
-    console.log(this)
     axios({
       method: 'patch',
       url: `${apiUrl}/items/${this.props.match.params.id}`,

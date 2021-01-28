@@ -54,9 +54,8 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
     <input
       name="fragile"
       type="checkbox"
-      placeholder="Is it fragile?"
       value={item.fragile}
-      onChange={handleInputChange}
+      onChange={!item.fragile}
     />
     <button type="submit">Submit</button>
   </form>
