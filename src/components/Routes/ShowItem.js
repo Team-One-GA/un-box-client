@@ -13,7 +13,7 @@ class ShowItem extends Component {
   }
   deleteItem = (item) => {
     const { user } = this.props
-    axios.delete({
+    axios({
       url: `${apiUrl}/items/${this.props.match.params.id}`,
       method: 'DELETE',
       headers: {
