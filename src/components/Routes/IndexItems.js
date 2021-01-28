@@ -12,7 +12,7 @@ class IndexItems extends Component {
   }
 
   componentDidMount () {
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     axios({
       url: apiUrl + '/items',
       method: 'get',
@@ -21,7 +21,18 @@ class IndexItems extends Component {
       }
     })
       .then(res => this.setState({ items: res.data.items }))
-      .catch(console.error)
+      .then(() => msgAlert({
+        heading: 'Ayyyyyyyy',
+        message: 'It\'s all here',
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'What?',
+          message: 'This?' + error.message,
+          variant: 'danger'
+        })
+      })
   }
   render () {
     let itemsJsx

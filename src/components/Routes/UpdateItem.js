@@ -4,7 +4,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ItemForm from '../Form/ItemForm'
 
-class CreateItem extends Component {
+class UpdateItem extends Component {
   constructor (props) {
     super(props)
 
@@ -17,7 +17,7 @@ class CreateItem extends Component {
         room: '',
         category: ''
       },
-      createdId: null
+      updated: false
     }
   }
   handleInputChange = (event) => {
@@ -35,38 +35,34 @@ class CreateItem extends Component {
     const { user, msgAlert } = this.props
     const { item } = this.state
     axios({
-      method: 'post',
-      url: `${apiUrl}/items`,
+      method: 'patch',
+      url: `${apiUrl}/items/${this.props.match.params.id}`,
       headers: {
         'Authorization': `Bearer ${user.token}`
       },
       data: { item }
     })
-      .then(res => {
-        this.setState({ createdId: res.data.item._id })
-        return res
-      })
-      .then(res => msgAlert({
-        heading: 'Created Item Successfully',
-        message: `${res.data.item.name} has been added!`,
+      .then(() => this.setState({ updated: true }))
+      .then(() => msgAlert({
+        heading: 'Updated!',
+        message: 'Well, something changed.',
         variant: 'success'
       }))
-      .catch(res => {
+      .catch(error => {
         msgAlert({
-          heading: 'Oh boy',
-          message: `${res.data.item.name} already exists`,
+          heading: 'Uh-oh!',
+          message: 'Peep this error: ' + error.message,
           variant: 'danger'
         })
       })
   }
   render () {
-    if (this.state.createdId) {
-      return <Redirect to ={`/items/${this.state.createdId}`}/>
+    if (this.state.updated) {
+      return <Redirect to ={`/items/${this.props.match.params.id}`}/>
     }
-    console.log(this.state.createdId)
     return (
       <Fragment>
-        <h2>Create an item</h2>
+        <h2>Update Your Item</h2>
         <ItemForm
           item={this.state.item}
           handleSubmit={this.handleSubmit}
@@ -76,4 +72,4 @@ class CreateItem extends Component {
     )
   }
 }
-export default CreateItem
+export default UpdateItem
