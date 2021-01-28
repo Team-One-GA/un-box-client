@@ -33,7 +33,7 @@ class UpdateItem extends Component {
   }
   handleSubmit = event => {
     event.preventDefault()
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     const { item } = this.state
     console.log(this)
     axios({
@@ -45,7 +45,18 @@ class UpdateItem extends Component {
       data: { item }
     })
       .then(() => this.setState({ updated: true }))
-      .catch(console.error)
+      .then(() => msgAlert({
+        heading: 'Updated!',
+        message: 'Well, something changed.',
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'Uh-oh!',
+          message: 'Peep this error: ' + error.message,
+          variant: 'danger'
+        })
+      })
   }
   render () {
     if (this.state.updated) {
