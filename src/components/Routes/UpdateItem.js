@@ -38,7 +38,7 @@ class UpdateItem extends Component {
     console.log(this)
     axios({
       method: 'patch',
-      url: `${apiUrl}/items/${this.props.match.params._id}`,
+      url: `${apiUrl}/items/${this.props.match.params.id}`,
       headers: {
         'Authorization': `Bearer ${user.token}`
       },
