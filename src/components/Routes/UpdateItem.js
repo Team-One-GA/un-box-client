@@ -4,7 +4,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ItemForm from '../Form/ItemForm'
 
-class CreateItem extends Component {
+class UpdateItem extends Component {
   constructor (props) {
     super(props)
 
@@ -18,7 +18,7 @@ class CreateItem extends Component {
         category: '',
         fragile: false
       },
-      createdId: null
+      updated: false
     }
   }
   handleInputChange = (event) => {
@@ -35,25 +35,25 @@ class CreateItem extends Component {
     event.preventDefault()
     const { user } = this.props
     const { item } = this.state
+    console.log(this)
     axios({
-      method: 'post',
-      url: `${apiUrl}/items`,
+      method: 'patch',
+      url: `${apiUrl}/items/${this.props.match.params._id}`,
       headers: {
         'Authorization': `Bearer ${user.token}`
       },
       data: { item }
     })
-      .then(res => this.setState({ createdId: res.data.item._id }))
+      .then(() => this.setState({ updated: true }))
       .catch(console.error)
   }
   render () {
-    if (this.state.createdId) {
-      return <Redirect to ={`/items/${this.state.createdId}`}/>
+    if (this.state.updated) {
+      return <Redirect to ={`/items/${this.props.match.params.id}`}/>
     }
-    console.log(this.state.createdId)
     return (
       <Fragment>
-        <h2>Create an item</h2>
+        <h2>Update Your Item</h2>
         <ItemForm
           item={this.state.item}
           handleSubmit={this.handleSubmit}
@@ -63,4 +63,4 @@ class CreateItem extends Component {
     )
   }
 }
-export default CreateItem
+export default UpdateItem
