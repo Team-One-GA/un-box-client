@@ -15,8 +15,7 @@ class UpdateItem extends Component {
         cost: '',
         size: '',
         room: '',
-        category: '',
-        fragile: false
+        category: ''
       },
       updated: false
     }

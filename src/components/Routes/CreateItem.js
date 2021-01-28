@@ -15,8 +15,7 @@ class CreateItem extends Component {
         cost: '',
         size: '',
         room: '',
-        category: '',
-        fragile: false
+        category: ''
       },
       createdId: null
     }

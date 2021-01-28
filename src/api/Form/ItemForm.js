@@ -50,14 +50,6 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
       value={item.category}
       onChange={handleInputChange}
     />
-    <label>Fragile</label>
-    <input
-      name="fragile"
-      type="checkbox"
-      value={item.fragile}
-      onChange={!item.fragile}
-    />
-    <button type="submit">Submit</button>
   </form>
 )
 
