@@ -33,7 +33,7 @@ class CreateItem extends Component {
   }
   handleSubmit = event => {
     event.preventDefault()
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     const { item } = this.state
     axios({
       method: 'post',
@@ -43,8 +43,22 @@ class CreateItem extends Component {
       },
       data: { item }
     })
-      .then(res => this.setState({ createdId: res.data.item._id }))
-      .catch(console.error)
+      .then(res => {
+        this.setState({ createdId: res.data.item._id })
+        return res
+      })
+      .then(res => msgAlert({
+        heading: 'Created Item Successfully',
+        message: `${res.data.item.name} has been added!`,
+        variant: 'success'
+      }))
+      .catch(res => {
+        msgAlert({
+          heading: 'Oh boy',
+          message: `${res.data.item.name} already exists`,
+          variant: 'danger'
+        })
+      })
   }
   render () {
     if (this.state.createdId) {

@@ -12,7 +12,7 @@ class ShowItem extends Component {
     }
   }
   componentDidMount (item) {
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     axios({
       url: `${apiUrl}/items/${this.props.match.params.id}`,
       method: 'GET',
@@ -20,11 +20,25 @@ class ShowItem extends Component {
         'Authorization': `Bearer ${user.token}`
       }
     })
-      .then(res => this.setState({ item: res.data.item }))
-      .catch(console.error)
+      .then(res => {
+        this.setState({ item: res.data.item })
+        return res
+      })
+      .then(res => msgAlert({
+        heading: 'Here!',
+        message: `You are now viewing ${res.data.item.name}`,
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'Whoops',
+          message: 'Something went wrong: ' + error.message,
+          variant: 'danger'
+        })
+      })
   }
   deleteItem = () => {
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     console.log(this.state.item._id)
     axios({
       url: `${apiUrl}/items/${this.state.item._id}`,
@@ -34,7 +48,18 @@ class ShowItem extends Component {
       }
     })
       .then(() => this.setState({ deleted: true }))
-      .catch(console.error)
+      .then(() => msgAlert({
+        heading: 'Destroyed!',
+        message: `${this.state.item.name} has been terminated`,
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'This one is stubborn!',
+          message: 'Check this: ' + error.message,
+          variant: 'danger'
+        })
+      })
   }
 
   render () {
