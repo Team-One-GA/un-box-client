@@ -15,8 +15,7 @@ class CreateItem extends Component {
         cost: '',
         size: '',
         room: '',
-        category: '',
-        fragile: false
+        category: ''
       },
       createdId: null
     }
@@ -33,7 +32,7 @@ class CreateItem extends Component {
   }
   handleSubmit = event => {
     event.preventDefault()
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     const { item } = this.state
     axios({
       method: 'post',
@@ -43,8 +42,22 @@ class CreateItem extends Component {
       },
       data: { item }
     })
-      .then(res => this.setState({ createdId: res.data.item._id }))
-      .catch(console.error)
+      .then(res => {
+        this.setState({ createdId: res.data.item._id })
+        return res
+      })
+      .then(res => msgAlert({
+        heading: 'Added Item Successfully',
+        message: `${res.data.item.name} has been added!`,
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'Oh boy',
+          message: 'Your error is ' + error.message,
+          variant: 'danger'
+        })
+      })
   }
   render () {
     if (this.state.createdId) {
@@ -53,12 +66,16 @@ class CreateItem extends Component {
     console.log(this.state.createdId)
     return (
       <Fragment>
-        <h2>Create an item</h2>
-        <ItemForm
-          item={this.state.item}
-          handleSubmit={this.handleSubmit}
-          handleInputChange={this.handleInputChange}
-        />
+        <div className="row">
+          <div className="col-sm-10 col-md-8 mx-auto mt-5">
+            <h2>Add or update an item</h2>
+            <ItemForm
+              item={this.state.item}
+              handleSubmit={this.handleSubmit}
+              handleInputChange={this.handleInputChange}
+            />
+          </div>
+        </div>
       </Fragment>
     )
   }

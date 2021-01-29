@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
-import ItemForm from '../Form/ItemForm'
+import UpdateForm from '../Form/UpdateForm'
 
 class UpdateItem extends Component {
   constructor (props) {
@@ -15,8 +15,7 @@ class UpdateItem extends Component {
         cost: '',
         size: '',
         room: '',
-        category: '',
-        fragile: false
+        category: ''
       },
       updated: false
     }
@@ -33,9 +32,8 @@ class UpdateItem extends Component {
   }
   handleSubmit = event => {
     event.preventDefault()
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     const { item } = this.state
-    console.log(this)
     axios({
       method: 'patch',
       url: `${apiUrl}/items/${this.props.match.params.id}`,
@@ -45,7 +43,18 @@ class UpdateItem extends Component {
       data: { item }
     })
       .then(() => this.setState({ updated: true }))
-      .catch(console.error)
+      .then(() => msgAlert({
+        heading: 'Updated!',
+        message: 'Well, something changed.',
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'Uh-oh!',
+          message: 'Peep this error: ' + error.message,
+          variant: 'danger'
+        })
+      })
   }
   render () {
     if (this.state.updated) {
@@ -53,12 +62,16 @@ class UpdateItem extends Component {
     }
     return (
       <Fragment>
-        <h2>Update Your Item</h2>
-        <ItemForm
-          item={this.state.item}
-          handleSubmit={this.handleSubmit}
-          handleInputChange={this.handleInputChange}
-        />
+        <div className="row">
+          <div className="col-sm-10 col-md-8 mx-auto mt-5">
+            <h2>Update Your Item</h2>
+            <UpdateForm
+              item={this.state.item}
+              handleSubmit={this.handleSubmit}
+              handleInputChange={this.handleInputChange}
+            />
+          </div>
+        </div>
       </Fragment>
     )
   }

@@ -2,12 +2,11 @@ import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
+const UpdateForm = ({ handleSubmit, handleInputChange, item }) => (
   <Form onSubmit={handleSubmit}>
     <Form.Group controlId="name">
       <Form.Label>Name</Form.Label>
       <Form.Control
-        required
         name="name"
         type="text"
         placeholder="Item name here"
@@ -18,7 +17,6 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
     <Form.Group controlId="quantity">
       <Form.Label>Quantity</Form.Label>
       <Form.Control
-        required
         name="quantity"
         type="number"
         min="0"
@@ -30,7 +28,6 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
     <Form.Group controlId="cost">
       <Form.Label>Cost</Form.Label>
       <Form.Control
-        required
         name="cost"
         type="number"
         min="0"
@@ -43,7 +40,6 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
     <Form.Group controlId="size">
       <Form.Label>Size</Form.Label>
       <Form.Control
-        required
         name="size"
         type="text"
         placeholder="How big or small is it?"
@@ -54,7 +50,6 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
     <Form.Group controlId="room">
       <Form.Label>Room</Form.Label>
       <Form.Control
-        required
         name="room"
         type="text"
         placeholder="Where's this going?"
@@ -65,7 +60,6 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
     <Form.Group controlId="category">
       <Form.Label>Category</Form.Label>
       <Form.Control
-        required
         name="category"
         type="text"
         placeholder="Category"
@@ -82,4 +76,4 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
   </Form>
 )
 
-export default ItemForm
+export default UpdateForm

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { Link } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 
 class IndexItems extends Component {
   constructor (props) {
@@ -12,7 +13,7 @@ class IndexItems extends Component {
   }
 
   componentDidMount () {
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     axios({
       url: apiUrl + '/items',
       method: 'get',
@@ -21,7 +22,13 @@ class IndexItems extends Component {
       }
     })
       .then(res => this.setState({ items: res.data.items }))
-      .catch(console.error)
+      .catch(error => {
+        msgAlert({
+          heading: 'What?',
+          message: 'This?' + error.message,
+          variant: 'danger'
+        })
+      })
   }
   render () {
     let itemsJsx
@@ -31,9 +38,18 @@ class IndexItems extends Component {
       itemsJsx = 'You don\'t have any items, stupid!'
     } else {
       const itemsList = this.state.items.map(item => (
-        <li key={item._id}>
-          <Link to={`/items/${item._id}`}>{item.name}</Link>
-        </li>
+        <Card key={item._id} className = "d-inline-flex" style={{ width: '12rem' }}>
+          <Link to={`/items/${item._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Card.Body>
+              <Card.Title>{item.name}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">Quantity: {item.quantity}</Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">Cost: ${item.cost}</Card.Subtitle>
+              <Card.Text>
+                {`Total Cost: $${item.quantity * item.cost}`}
+              </Card.Text>
+            </Card.Body>
+          </Link>
+        </Card>
       ))
       itemsJsx = (
         <ul>
@@ -42,9 +58,13 @@ class IndexItems extends Component {
       )
     }
     return (
-      <div>
-        <h1>Check out the items, bro!</h1>
-        {itemsJsx}
+      <div className="row">
+        <div className="col-sm-10 col-md-8 mx-auto mt-5">
+          <h2 style={{ textAlign: 'center' }}>Here is your inventory!</h2>
+          <div className="col-sm-4 col-md-8 col-lg-12 mx-auto mt-5">
+            {itemsJsx}
+          </div>
+        </div>
       </div>
     )
   }
