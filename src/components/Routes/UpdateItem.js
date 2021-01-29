@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
-import ItemForm from '../Form/ItemForm'
+import UpdateForm from '../Form/UpdateForm'
 
 class UpdateItem extends Component {
   constructor (props) {
@@ -63,7 +63,7 @@ class UpdateItem extends Component {
     return (
       <Fragment>
         <h2>Update Your Item</h2>
-        <ItemForm
+        <UpdateForm
           item={this.state.item}
           handleSubmit={this.handleSubmit}
           handleInputChange={this.handleInputChange}
