@@ -62,12 +62,16 @@ class UpdateItem extends Component {
     }
     return (
       <Fragment>
-        <h2>Update Your Item</h2>
-        <UpdateForm
-          item={this.state.item}
-          handleSubmit={this.handleSubmit}
-          handleInputChange={this.handleInputChange}
-        />
+        <div className="row">
+          <div className="col-sm-10 col-md-8 mx-auto mt-5">
+            <h2>Update Your Item</h2>
+            <UpdateForm
+              item={this.state.item}
+              handleSubmit={this.handleSubmit}
+              handleInputChange={this.handleInputChange}
+            />
+          </div>
+        </div>
       </Fragment>
     )
   }
