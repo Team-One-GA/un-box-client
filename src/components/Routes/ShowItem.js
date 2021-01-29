@@ -79,7 +79,6 @@ class ShowItem extends Component {
           <p>Size: {item.size}</p>
           <p>Location: {item.room}</p>
           <p>Category: {item.category}</p>
-          <p>Fragile: {item.fragile}</p>
           <button onClick={this.deleteItem}>Delete</button>
           <button><Link to={`/update-item/${item._id}`}>Update Item</Link></button>
         </Fragment>
