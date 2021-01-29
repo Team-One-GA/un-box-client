@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { Link } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 
 class IndexItems extends Component {
   constructor (props) {
@@ -42,9 +43,18 @@ class IndexItems extends Component {
       itemsJsx = 'You don\'t have any items, stupid!'
     } else {
       const itemsList = this.state.items.map(item => (
-        <li key={item._id}>
-          <Link to={`/items/${item._id}`}>{item.name}</Link>
-        </li>
+        <Card key={item._id} className = "d-inline-flex" style={{ width: '12rem' }}>
+          <Link to={`/items/${item._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Card.Body>
+              <Card.Title>{item.name}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">Quantity: {item.quantity}</Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">Cost: {item.cost}</Card.Subtitle>
+              <Card.Text>
+                {`Total Cost: $${item.quantity * item.cost}`}
+              </Card.Text>
+            </Card.Body>
+          </Link>
+        </Card>
       ))
       itemsJsx = (
         <ul>
