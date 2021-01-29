@@ -47,14 +47,14 @@ class CreateItem extends Component {
         return res
       })
       .then(res => msgAlert({
-        heading: 'Created Item Successfully',
+        heading: 'Added Item Successfully',
         message: `${res.data.item.name} has been added!`,
         variant: 'success'
       }))
-      .catch(res => {
+      .catch(error => {
         msgAlert({
           heading: 'Oh boy',
-          message: `${res.data.item.name} already exists`,
+          message: 'Your error is ' + error.message,
           variant: 'danger'
         })
       })
@@ -66,12 +66,16 @@ class CreateItem extends Component {
     console.log(this.state.createdId)
     return (
       <Fragment>
-        <h2>Create an item</h2>
-        <ItemForm
-          item={this.state.item}
-          handleSubmit={this.handleSubmit}
-          handleInputChange={this.handleInputChange}
-        />
+        <div className="row">
+          <div className="col-sm-10 col-md-8 mx-auto mt-5">
+            <h2>Add or update an item</h2>
+            <ItemForm
+              item={this.state.item}
+              handleSubmit={this.handleSubmit}
+              handleInputChange={this.handleInputChange}
+            />
+          </div>
+        </div>
       </Fragment>
     )
   }
