@@ -75,7 +75,7 @@ class ShowItem extends Component {
         <Fragment>
           <h2>{item.name}</h2>
           <p>Quantity: {item.quantity}</p>
-          <p>Cost: {item.cost}</p>
+          <p>Cost: ${item.cost}</p>
           <p>Size: {item.size}</p>
           <p>Location: {item.room}</p>
           <p>Category: {item.category}</p>

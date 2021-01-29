@@ -48,7 +48,7 @@ class IndexItems extends Component {
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">Quantity: {item.quantity}</Card.Subtitle>
-              <Card.Subtitle className="mb-2 text-muted">Cost: {item.cost}</Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">Cost: ${item.cost}</Card.Subtitle>
               <Card.Text>
                 {`Total Cost: $${item.quantity * item.cost}`}
               </Card.Text>
