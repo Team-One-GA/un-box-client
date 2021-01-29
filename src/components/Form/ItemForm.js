@@ -21,6 +21,7 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
         required
         name="quantity"
         type="number"
+        min="0"
         placeholder="How many?"
         value={item.quantity}
         onChange={handleInputChange}
@@ -32,6 +33,7 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
         required
         name="cost"
         type="number"
+        min="0"
         placeholder="How much to move?"
         value={item.cost}
         onChange={handleInputChange}

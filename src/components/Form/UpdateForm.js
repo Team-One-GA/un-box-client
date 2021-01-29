@@ -19,6 +19,7 @@ const UpdateForm = ({ handleSubmit, handleInputChange, item }) => (
       <Form.Control
         name="quantity"
         type="number"
+        min="0"
         placeholder="How many?"
         value={item.quantity}
         onChange={handleInputChange}
@@ -29,6 +30,7 @@ const UpdateForm = ({ handleSubmit, handleInputChange, item }) => (
       <Form.Control
         name="cost"
         type="number"
+        min="0"
         placeholder="How much to move?"
         value={item.cost}
         onChange={handleInputChange}
