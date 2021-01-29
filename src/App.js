@@ -13,7 +13,7 @@ import CreateItem from './components/Routes/CreateItem'
 import ShowItem from './components/Routes/ShowItem'
 import IndexItems from './components/Routes/IndexItems'
 import UpdateItem from './components/Routes/UpdateItem'
-import Body from './components/Routes/Body'
+import Container from './components/Container/Container'
 
 class App extends Component {
   constructor (props) {
