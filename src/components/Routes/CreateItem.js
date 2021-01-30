@@ -17,7 +17,8 @@ class CreateItem extends Component {
         room: '',
         category: ''
       },
-      createdId: null
+      createdId: null,
+      updated: false
     }
   }
   handleInputChange = (event) => {
@@ -30,40 +31,78 @@ class CreateItem extends Component {
       return { item: newItem }
     })
   }
-  handleSubmit = event => {
+  handleSubmit = (event, UpdatedField) => {
     event.preventDefault()
     const { user, msgAlert } = this.props
-    const { item } = this.state
     axios({
-      method: 'post',
-      url: `${apiUrl}/items`,
+      url: apiUrl + '/items',
+      method: 'get',
       headers: {
         'Authorization': `Bearer ${user.token}`
-      },
-      data: { item }
+      }
     })
       .then(res => {
-        this.setState({ createdId: res.data.item._id })
-        return res
-      })
-      .then(res => msgAlert({
-        heading: 'Added Item Successfully',
-        message: `${res.data.item.name} has been added!`,
-        variant: 'success'
-      }))
-      .catch(error => {
-        msgAlert({
-          heading: 'Oh boy',
-          message: 'Your error is ' + error.message,
-          variant: 'danger'
-        })
+        if (res.data.items.find(item => item.name === document.getElementById('name').value) === undefined) {
+          const { user } = this.props
+          const { item } = this.state
+          axios({
+            method: 'post',
+            url: `${apiUrl}/items`,
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: { item }
+          })
+            .then((res, msgAlert) => {
+              this.setState({ createdId: res.data.item._id })
+              return res
+            })
+            .then(response => msgAlert({
+              heading: 'Added Item Successfully',
+              message: `${response.name} has been added!`,
+              variant: 'success'
+            }))
+            .catch(error => {
+              msgAlert({
+                heading: 'Oh boy',
+                message: 'Your error is ' + error.message,
+                variant: 'danger'
+              })
+            })
+        } else {
+          const dawg = res.data.items.find(item => item.name === document.getElementById('name').value)
+          const { user } = this.props
+          const { item } = this.state
+          axios({
+            method: 'patch',
+            url: `${apiUrl}/items/${dawg._id}`,
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: { item }
+          })
+            .then(() => this.setState({ updated: true }))
+            .then(() => console.log(this.state))
+            .then(() => msgAlert({
+              heading: 'Updated!',
+              message: 'Well, something changed.',
+              variant: 'success'
+            }))
+            .catch(error => {
+              msgAlert({
+                heading: 'Uh-oh!',
+                message: 'Peep this error: ' + error.message,
+                variant: 'danger'
+              })
+            })
+        }
       })
   }
+
   render () {
     if (this.state.createdId) {
       return <Redirect to ={`/items/${this.state.createdId}`}/>
     }
-    console.log(this.state.createdId)
     return (
       <Fragment>
         <div className="row">
