@@ -13,7 +13,7 @@ import CreateItem from './components/Routes/CreateItem'
 import ShowItem from './components/Routes/ShowItem'
 import IndexItems from './components/Routes/IndexItems'
 import UpdateItem from './components/Routes/UpdateItem'
-
+import Landing from './components/Landing/Landing'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -80,6 +80,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <Route user={user} exact path='/' render={() => (
+            <Landing user={user} />
           )} />
         </main>
       </Fragment>
