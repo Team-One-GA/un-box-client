@@ -34,7 +34,6 @@ class ShowItem extends Component {
   }
   deleteItem = () => {
     const { user, msgAlert } = this.props
-    console.log(this.state.item._id)
     axios({
       url: `${apiUrl}/items/${this.state.item._id}`,
       method: 'delete',
