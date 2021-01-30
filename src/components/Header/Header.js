@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+// import styled from 'styled-components'
 
 const authenticatedOptions = (
   <Fragment>
@@ -25,7 +26,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="white" variant="light" expand="md">
+  <Navbar bg="info" variant="light" expand="md">
     <Navbar.Brand href="#">
       <img src="https://i.imgur.com/ccQ0FEx.png" width="40"/>
     </Navbar.Brand>

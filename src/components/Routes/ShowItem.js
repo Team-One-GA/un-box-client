@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import Button from 'react-bootstrap/Button'
 
 class ShowItem extends Component {
   constructor (props) {
@@ -73,8 +74,8 @@ class ShowItem extends Component {
           <p>Size: {item.size}</p>
           <p>Location: {item.room}</p>
           <p>Category: {item.category}</p>
-          <button onClick={this.deleteItem}>Delete</button>
-          <button><Link to={`/update-item/${item._id}`}>Update Item</Link></button>
+          <Button onClick={this.deleteItem}>Delete</Button>
+          <Button variant="outline-primary"><Link to={`/update-item/${item._id}`}>Update Item</Link></Button>
         </Fragment>
       )
     }
