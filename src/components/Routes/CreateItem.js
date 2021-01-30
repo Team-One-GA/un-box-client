@@ -57,9 +57,9 @@ class CreateItem extends Component {
               this.setState({ createdId: res.data.item._id })
               return res
             })
-            .then(response => msgAlert({
+            .then(() => msgAlert({
               heading: 'Added Item Successfully',
-              message: `${response.name} has been added!`,
+              message: `${item.name} has been added!`,
               variant: 'success'
             }))
             .catch(error => {
@@ -82,10 +82,9 @@ class CreateItem extends Component {
             data: { item }
           })
             .then(() => this.setState({ updated: true }))
-            .then(() => console.log(this.state))
             .then(() => msgAlert({
               heading: 'Updated!',
-              message: 'Well, something changed.',
+              message: `${item.name} looks a bit different.`,
               variant: 'success'
             }))
             .catch(error => {
@@ -102,6 +101,8 @@ class CreateItem extends Component {
   render () {
     if (this.state.createdId) {
       return <Redirect to ={`/items/${this.state.createdId}`}/>
+    } else if (this.state.updated) {
+      return <Redirect to ={'/items/'}/>
     }
     return (
       <Fragment>
