@@ -34,6 +34,7 @@ const ItemForm = ({ handleSubmit, handleInputChange, item }) => (
         name="cost"
         type="number"
         min="0"
+        step="0.01"
         placeholder="How much to move?"
         value={item.cost}
         onChange={handleInputChange}

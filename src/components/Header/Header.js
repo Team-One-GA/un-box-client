@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+// import styled from 'styled-components'
 
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#items">Check Inventory</Nav.Link>
-    <Nav.Link href="#create-item">Create Item</Nav.Link>
+    <Nav.Link href="#create-item">Update Inventory</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
@@ -25,7 +26,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar bg="info" variant="light" expand="md">
     <Navbar.Brand href="#">
       <img src="https://i.imgur.com/ccQ0FEx.png" width="40"/>
     </Navbar.Brand>

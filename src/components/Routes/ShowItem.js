@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import Button from 'react-bootstrap/Button'
 
 class ShowItem extends Component {
   constructor (props) {
@@ -24,11 +25,6 @@ class ShowItem extends Component {
         this.setState({ item: res.data.item })
         return res
       })
-      .then(res => msgAlert({
-        heading: 'Here!',
-        message: `You are now viewing ${res.data.item.name}`,
-        variant: 'success'
-      }))
       .catch(error => {
         msgAlert({
           heading: 'Whoops',
@@ -39,7 +35,6 @@ class ShowItem extends Component {
   }
   deleteItem = () => {
     const { user, msgAlert } = this.props
-    console.log(this.state.item._id)
     axios({
       url: `${apiUrl}/items/${this.state.item._id}`,
       method: 'delete',
@@ -75,19 +70,23 @@ class ShowItem extends Component {
         <Fragment>
           <h2>{item.name}</h2>
           <p>Quantity: {item.quantity}</p>
-          <p>Cost: {item.cost}</p>
+          <p>Cost: ${item.cost}</p>
           <p>Size: {item.size}</p>
           <p>Location: {item.room}</p>
           <p>Category: {item.category}</p>
-          <button onClick={this.deleteItem}>Delete</button>
-          <button><Link to={`/update-item/${item._id}`}>Update Item</Link></button>
+          <Button onClick={this.deleteItem}>Delete</Button>
+          <Button variant="outline-primary"><Link to={`/update-item/${item._id}`}>Update Item</Link></Button>
         </Fragment>
       )
     }
     return (
       <Fragment>
-        <h2>Show Items Page</h2>
-        {itemJsx}
+        <div className="row">
+          <div className="col-sm-10 col-md-8 mx-auto mt-5">
+            <h2>Here it is!</h2>
+            {itemJsx}
+          </div>
+        </div>
       </Fragment>
     )
   }

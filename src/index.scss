@@ -1,1 +1,25 @@
+$info: #FFF;
+$background: #00296B;
+$textcolor: #FFF;
+$dark: #00296B;
+$primary: #FDC500;
+$black: #000000;
+
 @import '~bootstrap/scss/bootstrap';
+
+body {
+  background-color: $background;
+  color: $textcolor;
+}
+
+.card-body {
+  color: #000;
+}
+
+.button {
+  border: 2px solid white;
+}
+
+a {
+  color: $textcolor;
+}

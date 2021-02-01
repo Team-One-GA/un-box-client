@@ -22,11 +22,6 @@ class IndexItems extends Component {
       }
     })
       .then(res => this.setState({ items: res.data.items }))
-      .then(() => msgAlert({
-        heading: 'Ayyyyyyyy',
-        message: 'It\'s all here',
-        variant: 'success'
-      }))
       .catch(error => {
         msgAlert({
           heading: 'What?',
@@ -48,7 +43,7 @@ class IndexItems extends Component {
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">Quantity: {item.quantity}</Card.Subtitle>
-              <Card.Subtitle className="mb-2 text-muted">Cost: {item.cost}</Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">Cost: ${item.cost}</Card.Subtitle>
               <Card.Text>
                 {`Total Cost: $${item.quantity * item.cost}`}
               </Card.Text>
@@ -63,9 +58,13 @@ class IndexItems extends Component {
       )
     }
     return (
-      <div>
-        <h1>Check out the items, bro!</h1>
-        {itemsJsx}
+      <div className="row">
+        <div className="col-sm-10 col-md-8 mx-auto mt-5">
+          <h2 style={{ textAlign: 'center' }}>Here is your inventory!</h2>
+          <div className="col-sm-4 col-md-8 col-lg-12 mx-auto mt-5">
+            {itemsJsx}
+          </div>
+        </div>
       </div>
     )
   }
